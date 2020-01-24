@@ -13,6 +13,7 @@ $mitra = mysqli_num_rows($result_mitra);
 $penyewaan = mysqli_num_rows($result_penyewaan);
 $mobil = mysqli_num_rows($result_mobil);
 
+
 require "../config/function_sewa.php";
 date_default_timezone_set('Asia/Jakarta');
 $tgl=date('m/d/Y');
