@@ -28,11 +28,15 @@ function tambahMitra($data)
     $alamat = $data['alamat'];
     $noTelp = $data['notelp'];
     $email = $data['email'];
+
     $foto = upload();
 
+    if (!$foto) {
+        return false;
+    }
 
-    mysqli_query($con, "INSERT INTO mitra 
-                                        VALUES 
+    mysqli_query($con, "INSERT INTO mitra
+                                        VALUES
                                         ('$id_mitra','$nama','$alamat','$noTelp','$email','$foto')");
 
     return mysqli_affected_rows($con);
@@ -61,7 +65,7 @@ function upload()
     $ekstensiGambar = explode('.', $namaGambar);
     $ekstensiGambar = strtolower(end($ekstensiGambar));
 
-    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+    if ( !in_array($ekstensiGambar, $ekstensiGambarValid )) {
         echo "
         <script>
         alert('Format tidak didukung');
@@ -77,7 +81,6 @@ function upload()
         alert('ukuran gambar terlalu besar');
         </script>
         ";
-
         return false;
     }
 
@@ -87,14 +90,11 @@ function upload()
     return $namaGambar;
 }
 
-function hapus($id)
-{
-    global $con;
+?>
 
 
-    mysqli_query($con, "DELETE FROM `mitra` WHERE `id_mitra` = '$id'");
-
-    return mysqli_affected_rows($con);
 
 
-}
+
+
+

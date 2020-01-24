@@ -17,9 +17,11 @@ function login($user, $pass)
 
         $rows = mysqli_fetch_assoc($result);
 
-        if (password_verify($pass, $rows["password"])) {
-            return $rows["nama"];
-        }
+//        foreach ($rows as $row) {
+            if (password_verify($pass, $rows["password"])) {
+                return $rows["nama"];
+            }
+//        }
 
     } else {
         echo "<script>

@@ -11,8 +11,8 @@ function register($data)
     $nama = strtolower(htmlspecialchars($data['Nama']));
     $alamat = htmlspecialchars($data['Alamat']);
     $email = htmlspecialchars( $data['email'] );
-    $password = mysqli_real_escape_string($con, $data['password']);
-    $password2 = mysqli_real_escape_string($con, $data['cpassword']);
+    $password = $data['password'];
+    $password2 =$data['cpassword'];
 
     // upload gambar
     $gambar = upload();
@@ -87,7 +87,7 @@ function upload () {
 
     // cek size gambar
 
-    if ($size > 3000000){
+    if ($size > 1000000){
 
         echo "<script>
                 alert('ukuran gambar terlalu besar!');
@@ -100,9 +100,9 @@ function upload () {
     $newImageName = uniqid();
     $newImageName .= '.';
     $newImageName .=  $format;
-    $folder ='../../upload/regfoto/';
+//    $folder ='';
 
-    move_uploaded_file($tmp, $folder. $newImageName);
+    move_uploaded_file($tmp, '../../upload/regfoto/'. $newImageName);
 
     return $newImageName;
 

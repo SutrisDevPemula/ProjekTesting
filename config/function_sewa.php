@@ -27,7 +27,7 @@ function tmbh_sewa($data)
     $durasi = $data['durasi'];
     $idpetugas = "12345";
     $nopol = $data['nopol'];
-    $statusbyr = "pired";
+    $statusbyr = "Unpayred";
 
 
     mysqli_query($con, "INSERT INTO `penyewaan`
@@ -38,4 +38,27 @@ function tmbh_sewa($data)
 
     return mysqli_affected_rows($con);
 
+}
+
+function ubah( $data ) {
+    global $con;
+
+    $idTransaksi = $data['idtrans'];
+    $statusBayar = $data['statusBayar'];
+
+    $query = "UPDATE `penyewaan` SET paid = '$statusBayar' WHERE id_transaksi = '$idTransaksi'";
+
+    mysqli_query( $con, $query );
+
+    return mysqli_affected_rows( $con );
+}
+
+function cari($keyword)
+{
+    $sql = "SELECT * FROM `penyewaan`
+                    WHERE
+                    id_transaksi LIKE '%$keyword%'
+             ";
+
+    return query($sql);
 }

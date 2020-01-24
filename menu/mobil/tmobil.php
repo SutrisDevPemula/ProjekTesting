@@ -55,7 +55,7 @@ if (isset($_POST['login'])) {
   $login = login($username, $password);
 
 
-  $result = mysqli_query($con, "SELECT * FROM costumer");
+    $result = mysqli_query($con, "SELECT * FROM costumer WHERE nama = '$username'");
 
   $rows =mysqli_fetch_assoc($result);
 

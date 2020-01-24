@@ -3,8 +3,26 @@
 require "../log_session.php";
 require "../../config/fungsi_mitra";
 
+
 $mitra = query("SELECT * FROM mitra");
 
+
+?>
+<!--<img src="../../upload/mitra/" alt="">-->
+<?php
+if (isset($_POST['simpan'])) {
+    if (tambahMitra($_POST) > 0) {
+        echo "<script>
+                alert('Data mitra berhasil ditambahkan.');
+               </script>";
+    } else {
+        echo "<script>
+                alert('Data gagal ditambahkan.');
+               </script>";
+//    echo mysqli_error($con);
+    }
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +47,7 @@ $mitra = query("SELECT * FROM mitra");
             <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false" style="text-transform: uppercase">
                 <img src="../asset/icon/user.png" alt="" style="width: 40px; margin-right: 15px">
-              <?= $_SESSION['admin']; ?>
+                <?= $_SESSION['admin']; ?>
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="menu/logout.php">Log Out</a>
@@ -49,11 +67,11 @@ $mitra = query("SELECT * FROM mitra");
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="../Home.php">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="dtmobil.php">Data Mobil</a>
-                <a class="nav-item nav-link" href="#">Data Mitra</a>
-                <a class="nav-item nav-link" href="#">Data Pemesanan</a>
-                <a class="nav-item nav-link" href="#">Data Pengembalian</a>
+                <a class="nav-item nav-link" href="mitra.php">Data Mitra</a>
+                <a class="nav-item nav-link" href="pemesanan.php">Data Pemesanan</a>
+                <a class="nav-item nav-link" href="pengembalian.php">Data Pengembalian</a>
                 <a class="nav-item nav-link" href="costumer.php">Data Costumer</a>
             </div>
         </div>
@@ -75,7 +93,7 @@ $mitra = query("SELECT * FROM mitra");
             </button>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true" >
+                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
@@ -87,26 +105,29 @@ $mitra = query("SELECT * FROM mitra");
                         </div>
 
                         <div class="modal-body">
-                            <form>
+                            <form action="" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Nama</label>
-                                    <input type="text" class="form-control" id="recipient-name" name="nama" placeholder="Nama">
+                                    <label for="recipient-name" class="col-form-label">Nama:</label>
+                                    <input type="text" class="form-control" id="recipient-name" name="nama"
+                                           placeholder="Nama">
                                 </div>
                                 <div class="form-group">
                                     <label for="message-text" class="col-form-label">Alamat</label>
-                                    <textarea class="form-control" id="message-text" name="alamat" placeholder="alamat"></textarea>
+                                    <textarea class="form-control" id="message-text" name="alamat"
+                                              placeholder="alamat"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">No Telp</label>
-                                    <input type="number" class="form-control" id="recipient-name" name="notelp" placeholder="No telp">
+                                    <input type="number" class="form-control" id="recipient-name" name="notelp"
+                                           placeholder="No telp">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Foto</label>
+                                    <label for="recipient-name" class="col-form-label">Email</label>
                                     <input type="email" class="form-control" id="recipient-name" name="email"
                                            placeholder="email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Email</label>
+                                    <label for="recipient-name" class="col-form-label">Foto:</label>
                                     <input type="file" class="form-control" id="recipient-name" name="foto"
                                            placeholder="foto">
                                 </div>
@@ -114,7 +135,7 @@ $mitra = query("SELECT * FROM mitra");
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Send message</button>
+                            <button type="submit" class="btn btn-primary" name="simpan" id="simpan">Simpan</button>
                         </div>
                         </form>
                     </div>
@@ -152,24 +173,35 @@ $mitra = query("SELECT * FROM mitra");
                 <th scope="col">No Telp</th>
                 <th scope="col">E-Mail</th>
                 <th scope="col">Foto</th>
+                <th scope="col">Aksi</th>
             </tr>
             </thead>
 
             <tbody>
-            <?php foreach ($mitra as $row) : ?>
+            <?php $no = 1;
+            foreach ($mitra as $row) : ?>
                 <tr>
-                    <td scope="col">No</td>
+                    <td scope="col"><?= $no; ?></td>
                     <td scope="col"><?= $row['id_mitra']; ?></td>
                     <td scope="col"><?= $row["Nama"]; ?></td>
                     <td scope="col"><?= $row["Alamat"]; ?></td>
                     <td scope="col"><?= $row["No_telp"]; ?></td>
                     <td scope="col"><?= $row["email"]; ?></td>
                     <td scope="col">
-                        <img src="../../upload/imgmitra/<?= $row['img']; ?>" class="card-img" alt="No Image"
+                        <img src="../../upload/mitra/<?= $row['img']; ?>" class="card-img" alt="No Image"
                              style="width: 10rem; margin-left: 5px; margin-top: 20px">
                     </td>
+                    <td scope="col">
+                        <!--                        <form action="" method="post"></form>-->
+                        <a href="../../config/hapusmitra.php?id_mitra=<?= $row['id_mitra']; ?>">
+                            <button type="button" class="btn btn-danger">Hapus</button>
+                        </a>
+
+                    </td>
                 </tr>
-            <?php endforeach; ?>
+                <?php
+                $no++;
+            endforeach; ?>
             </tbody>
 
         </table>

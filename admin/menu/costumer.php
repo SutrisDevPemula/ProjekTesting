@@ -49,11 +49,11 @@ $costumer = query("SELECT * FROM costumer");
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="dtmobil.php">Data Mobil</a>
                 <a class="nav-item nav-link" href="mitra.php">Data Mitra</a>
-                <a class="nav-item nav-link" href="">Data Pemesanan</a>
-                <a class="nav-item nav-link" href="">Data Pengembalian</a>
+                <a class="nav-item nav-link" href="pemesanan.php">Data Pemesanan</a>
+                <a class="nav-item nav-link" href="pengembalian.php">Data Pengembalian</a>
                 <a class="nav-item nav-link" href="costumer.php">Data Costumer</a>
             </div>
         </div>
@@ -73,7 +73,6 @@ $costumer = query("SELECT * FROM costumer");
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">No</th>
                 <th scope="col">No Ktp</th>
                 <th scope="col">No telp</th>
                 <th scope="col">Nama</th>
@@ -85,7 +84,6 @@ $costumer = query("SELECT * FROM costumer");
           <?php foreach ($costumer as $row) : ?>
               <tbody>
               <tr>
-                  <td scope="col"></td>
                   <td scope="col"><?= $row['No_Ktp'] ?></td>
                   <td scope="col"><?= $row['No_telp'] ?></td>
                   <td scope="col"><?= $row['nama'] ?></td>

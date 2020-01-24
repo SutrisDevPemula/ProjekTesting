@@ -1,11 +1,12 @@
 <?php
 require "../../config/function_pengembalian.php";
+require "../../config/function_tmobll.php";
 require "../log_session.php";
 //require "../../config/fungsi_mitra";
 
 $mobil = query("SELECT * FROM mobil");
 
-$kembali = query("SELECT * FROM pengembalian");
+$kembali = query1("SELECT * FROM pengembalian");
 
 
 
@@ -69,7 +70,7 @@ if (isset($_POST['simpan'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="../Home.php">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="dtmobil.php">Data Mobil</a>
                 <a class="nav-item nav-link" href="mitra.php">Data Mitra</a>
                 <a class="nav-item nav-link" href="pemesanan.php">Data Pemesanan</a>
@@ -87,119 +88,6 @@ if (isset($_POST['simpan'])) {
 <br>
 <br>
 <div class="container-fluid">
-    <div class="row">
-        <!-- Large modal -->
-        <div class="col">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-                    data-whatever="@getbootstrap">Tambah Data
-            </button>
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Data baru</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <form method="post" enctype="multipart/form-data">
-                            <div class="modal-body">
-                                <small>Form dengan tanda <small style="color: red">*</small> wajib diisi</small><br>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Pilih Mitra :</label>
-                                    <small style="color: red">*</small>
-                                    <select class="form-control" id="exampleFormControlSelect1" name="idmitra">
-                                        <option>Pilih mitra</option>
-                                      <?php foreach ($mitra as $rowMitra) : ?>
-                                          <option value="<?= $rowMitra['id_mitra'] ?>"><?= $rowMitra['Nama'] ?></option>
-                                      <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">No Polisi :</label>
-                                    <small style="color: red">*</small>
-                                    <input type="text" class="form-control" id="recipient-name" name="nopol"
-                                           placeholder="Nopol">
-                                </div>
-                                <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Merk Mobil :</label>
-                                    <small style="color: red">*</small>
-                                    <input type="text" class="form-control" id="recipient-name" name="merk"
-                                           placeholder="merk">
-                                </div>
-                                <div class="form-group">
-                                    <label for="tipe" class="col-form-label">Type Mobil :</label>
-                                    <small style="color: red">*</small>
-                                    <select class="form-control" name="tipe" id="tipe">
-                                        <option value="Coupe">Coupe</option>
-                                        <option value="Convertible">Convertible</option>
-                                        <option value="Minivan">Minivan</option>
-                                        <option value="Sedan">Sedan</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Kapasitas Penumpang :</label>
-                                    <small style="color: red">*</small>
-                                    <input type="number" class="form-control" id="recipient-name" name="kapasitas"
-                                           placeholder="kapasitas">
-                                </div>
-                                <div class="form-group">
-                                    <label for="fasilitas" class="col-form-label">Ketgori Penyewaan :</label>
-                                    <small style="color: red">*</small>
-                                    <select name="fasilitas" class="form-control" id="fasilitas">
-                                        <option value="">Pilih Kategori Penyewaan</option>
-                                        <option value="Dengan sopir">Dengan Sopir</option>
-                                        <option value="Lepas Kunci">Lepas Kunci</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Tarif / Hari :</label>
-                                    <small style="color: red">*</small>
-                                    <input type="number" class="form-control" id="recipient-name" name="tarif"
-                                           placeholder="tarif">
-                                </div>
-                                <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Ketersediaan Mobil :</label>
-                                    <small style="color: red">*</small>
-                                    <input type="number" class="form-control" id="recipient-name" name="stok"
-                                           placeholder="Stok">
-                                </div>
-                                <div class="form-group">
-                                    <input type="file" name="gambar" placeholder="Pilih file"
-                                           style="height: 50px; width: 100%">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--    last large modal-->
-
-        <!--        search-->
-        <div class="col">
-            <form action="">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Recipient's username"
-                           aria-label="Cari id atau nama mitra" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-                            <img src="../asset/icon/search.png" alt="" style="width: 20px;">
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!--        last search-->
-    </div>
 
     <br>
     <!--    tabel content-->
@@ -213,8 +101,6 @@ if (isset($_POST['simpan'])) {
                 <th scope="col">Tgl Kembali</th>
                 <th scope="col">Lama Pengembalian</th>
                 <th scope="col">denda</th>
-                <th scope="col">Total Bayar</th>
-                <th scope="col">Aksi</th>
             </tr>
             </thead>
 
@@ -223,15 +109,10 @@ if (isset($_POST['simpan'])) {
               <tr>
                   <td scope="col"><?= $row["Id_kembali"]; ?></td>
                   <td scope="col"><?= $row['Id_transaksi']; ?></td>
-                  <td scope="col"><?= $row["nopol"]; ?></td>
+                  <td scope="col"><?= $row["no_pol"]; ?></td>
                   <td scope="col"><?= $row["tgl_kembali"]; ?></td>
-                  <td scope="col"><?= $row["lama_pengembalian"]; ?></td>
-                  <td scope="col"><?= $row["denda"]; ?></td>
-                  <td scope="col"><?= $row["Total_bayar"]; ?></td>
-                  <td scope="col">
-                      <button type="button" class="btn btn-warning">Ubah</button>
-                      <button type="button" class="btn btn-danger">Hapus</button>
-                  </td>
+                  <td scope="col"><?= $row["lama_pengembalian"]; ?> Hari</td>
+                  <td scope="col">Rp. <?= $row["denda"]; ?></td>
               </tr>
               </tbody>
           <?php endforeach; ?>

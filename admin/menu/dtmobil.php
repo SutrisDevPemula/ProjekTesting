@@ -10,7 +10,7 @@ $mitra = query("SELECT * FROM mitra");
 
 if (isset($_GET['npl'])) {
 
-  $view = $_GET['npl'];
+    $view = $_GET['npl'];
 
 }
 
@@ -20,14 +20,14 @@ if (isset($_GET['npl'])) {
 <?php
 
 if (isset($_POST['simpan'])) {
-  if (tambahmobil($_POST) > 0) {
-    echo "<script>
+    if (tambahmobil($_POST) > 0) {
+        echo "<script>
                 alert('selamat anda sudah terdaftarkan sebagai member.');
                </script>";
-    header("Location:dtmobil.php");
-  } else {
-    echo mysqli_error($con);
-  }
+        header("Location:dtmobil.php");
+    } else {
+        echo mysqli_error($con);
+    }
 }
 
 ?>
@@ -55,7 +55,7 @@ if (isset($_POST['simpan'])) {
             <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false" style="text-transform: uppercase">
                 <img src="../asset/icon/user.png" alt="" style="width: 40px; margin-right: 15px">
-              <?= $_SESSION['admin']; ?>
+                <?= $_SESSION['admin']; ?>
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="menu/logout.php">Log Out</a>
@@ -75,11 +75,11 @@ if (isset($_POST['simpan'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="../Home.php">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="dtmobil.php">Data Mobil</a>
-                <a class="nav-item nav-link" href="#">Data Mitra</a>
-                <a class="nav-item nav-link" href="#">Data Pemesanan</a>
-                <a class="nav-item nav-link" href="#">Data Pengembalian</a>
+                <a class="nav-item nav-link" href="mitra.php">Data Mitra</a>
+                <a class="nav-item nav-link" href="pemesanan.php">Data Pemesanan</a>
+                <a class="nav-item nav-link" href="pengembalian.php">Data Pengembalian</a>
                 <a class="nav-item nav-link" href="costumer.php">Data Costumer</a>
             </div>
         </div>
@@ -120,9 +120,9 @@ if (isset($_POST['simpan'])) {
                                     <small style="color: red">*</small>
                                     <select class="form-control" id="exampleFormControlSelect1" name="idmitra">
                                         <option>Pilih mitra</option>
-                                      <?php foreach ($mitra as $rowMitra) : ?>
-                                          <option value="<?= $rowMitra['id_mitra'] ?>"><?= $rowMitra['Nama'] ?></option>
-                                      <?php endforeach; ?>
+                                        <?php foreach ($mitra as $rowMitra) : ?>
+                                            <option value="<?= $rowMitra['id_mitra'] ?>"><?= $rowMitra['Nama'] ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -194,7 +194,7 @@ if (isset($_POST['simpan'])) {
         <div class="col">
             <form action="">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Recipient's username"
+                    <input type="text" class="form-control" placeholder="ketik no pol"
                            aria-label="Cari id atau nama mitra" aria-describedby="button-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">
@@ -213,6 +213,7 @@ if (isset($_POST['simpan'])) {
         <table class="table">
             <thead>
             <tr style="text-transform: uppercase">
+                <th scope="col">No</th>
                 <th scope="col">ID mitra</th>
                 <th scope="col">No Polisi</th>
                 <th scope="col">Merk mobil</th>
@@ -226,27 +227,35 @@ if (isset($_POST['simpan'])) {
             </tr>
             </thead>
 
-          <?php foreach ($mobil
-                         as $row) : ?>
-              <tbody>
-              <tr>
-                  <td scope="col"><?= $row["id_mitra"]; ?></td>
-                  <td scope="col"><?= $row['no_pol']; ?></td>
-                  <td scope="col"><?= $row["merk"]; ?></td>
-                  <td scope="col"><?= $row["tipe"]; ?></td>
-                  <td scope="col"><?= $row["kapasitas"]; ?></td>
-                  <td scope="col"><?= $row["fasilitas"]; ?></td>
-                  <td scope="col"><?= $row["tarif"]; ?></td>
-                  <td scope="col"><?= $row["stok"]; ?></td>
-                  <td scope="col"><img src="../../upload/imgmobil/<?= $row["gambar"]; ?> " alt="" style="width: 80px">
-                  </td>
-                  <td scope="col">
-                      <button type="button" class="btn btn-warning">Ubah</button>
-                      <button type="button" class="btn btn-danger">Hapus</button>
-                  </td>
-              </tr>
-              </tbody>
-          <?php endforeach; ?>
+            <?php
+            $no = 1;
+            foreach ($mobil
+                           as $row) : ?>
+                <tbody>
+                <tr>
+                    <td scope="col"><?= $no; ?></td>
+                    <td scope="col"><?= $row["id_mitra"]; ?></td>
+                    <td scope="col"><?= $row['no_pol']; ?></td>
+                    <td scope="col"><?= $row["merk"]; ?></td>
+                    <td scope="col"><?= $row["tipe"]; ?></td>
+                    <td scope="col"><?= $row["kapasitas"]; ?></td>
+                    <td scope="col"><?= $row["fasilitas"]; ?></td>
+                    <td scope="col"><?= $row["tarif"]; ?></td>
+                    <td scope="col"><?= $row["stok"]; ?></td>
+                    <td scope="col"><a href="../../upload/imgmobil/<?= $row["gambar"]; ?> "><img
+                                    src="../../upload/imgmobil/<?= $row["gambar"]; ?> " alt="" style="width: 80px">
+                        </a></td>
+                    <td scope="col">
+                        <!--                        <button type="button" class="btn btn-warning">Ubah</button>-->
+                        <a href="../../config/HapusMobil.php?id_mobil=<?= $row["no_pol"]; ?>">
+                            <button type="button" class="btn btn-danger">Hapus</button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            <?php
+            $no++;
+            endforeach; ?>
         </table>
     </div>
     <!--    last tabel content-->

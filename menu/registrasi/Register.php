@@ -7,7 +7,9 @@ if (isset($_POST['daftar'])) {
   if (register($_POST) > 0) {
     echo "<script>
                 alert('selamat anda sudah terdaftarkan sebagai member.');
+                document.location('');
                </script>";
+    header( 'Location:../../index.php');
   } else {
     echo mysqli_error($con);
   }
@@ -15,7 +17,6 @@ if (isset($_POST['daftar'])) {
 }
 
 ?>
-
 <!--set waktu-->
 
 <?php
@@ -50,7 +51,7 @@ if (isset($_POST['login'])) {
   $login = login($username, $password);
 
 
-  $result = mysqli_query($con, "SELECT * FROM costumer");
+    $result = mysqli_query($con, "SELECT * FROM costumer WHERE nama = '$username'");
 
   $rows =mysqli_fetch_assoc($result);
 
@@ -121,7 +122,7 @@ if (isset($_POST["logout"])) {
         <a class="navbar-brand" href="#"
            style="font-family:'Condiment', 'Marck Script', 'cursive'; font-size: 30px; margin-left: 100px;">
             <!-- SiRent -->
-            <img src="asset/icon/1x/sirent_1.png" class="d-inline-block align-top" alt="" style="width: 150px;">
+            <img src="../../asset/icon/1x/sirent_1.png" class="d-inline-block align-top" alt="" style="width: 150px;">
         </a>
         <ul class="nav justify-content-center" style="margin-right:70px ;">
           <?php if (isset($_SESSION["users"])) : ?>
@@ -129,7 +130,7 @@ if (isset($_POST["logout"])) {
                   <a class="nav-link">
                       <!-- button to modal -->
                       <button type="button" class="btn btn-light"><img
-                                  src="asset/icon/user2.png" alt="user" style="width: 25px;">
+                                  src="../../asset/icon/user2.png" alt="user" style="width: 25px;">
                           <span style="color: #007bff; font-family: 'Righteous', cursive;">
                             <!-- Log In -->
                             <?= strtoupper($_SESSION["users"]); ?>
@@ -150,7 +151,7 @@ if (isset($_POST["logout"])) {
                   <a class="nav-link">
                       <!-- button to modal -->
                       <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModal"><img
-                                  src="asset/icon/user2.png" alt="user" style="width: 25px;">
+                                  src="../../asset/icon/user2.png" alt="user" style="width: 25px;">
                           <span style="color: #007bff; font-family: 'Righteous', cursive;">
                             <!-- Log In -->
                             Log In
@@ -172,16 +173,16 @@ if (isset($_POST["logout"])) {
     <!-- nav  -->
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
-            <a class="nav-link active" href="index.php"
+            <a class="nav-link active" href="../../index.php"
                style="color: rgb(51, 51, 51); font-family: 'Kanit', sans-serif;">Halaman Awal</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="menu/tampil_mitra/mitra.php"
+            <a class="nav-link" href="../tampil_mitra/mitra.php"
                style="color: rgb(51, 51, 51); font-family: 'Kanit', sans-serif;">Mitra
                 Kami</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="menu/mobil/tmobil.php"
+            <a class="nav-link" href="../mobil/tmobil.php"
                style="color: rgb(51, 51, 51); font-family: 'Kanit', sans-serif; ">Pilihan
                 Kendaraan</a>
         </li>
@@ -212,6 +213,7 @@ if (isset($_POST["logout"])) {
             <div class="card-body">
                 <h5 class="card-title" style="text-align: center;">Gabung Jadi Member Sirent!</h5>
                 <br>
+<!--                <img src="../../upload/regfoto/" alt="">-->
                 <form method="post" action="" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="formGroupExampleInput2">no_ktp</label>

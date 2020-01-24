@@ -6,6 +6,14 @@ require "../../config/function_sewa.php";
 $pemesanan = query("SELECT * FROM penyewaan");
 
 ?>
+
+<?php
+if (isset($_POST['search'])) {
+    $pemesanan = cari($_POST['keyword']);
+//    var_dump($_POST['keyword']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,11 +57,11 @@ $pemesanan = query("SELECT * FROM penyewaan");
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="../Home.php">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="dtmobil.php">Data Mobil</a>
-                <a class="nav-item nav-link" href="#">Data Mitra</a>
-                <a class="nav-item nav-link" href="#">Data Pemesanan</a>
-                <a class="nav-item nav-link" href="#">Data Pengembalian</a>
+                <a class="nav-item nav-link" href="mitra.php">Data Mitra</a>
+                <a class="nav-item nav-link" href="pemesanan.php">Data Pemesanan</a>
+                <a class="nav-item nav-link" href="pengembalian.php">Data Pengembalian</a>
                 <a class="nav-item nav-link" href="costumer.php">Data Costumer</a>
             </div>
         </div>
@@ -70,12 +78,12 @@ $pemesanan = query("SELECT * FROM penyewaan");
     <div class="row">
         <!--        search-->
         <div class="col">
-            <form action="">
+            <form action="" method="post">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Recipient's username"
-                           aria-label="Cari id atau nama mitra" aria-describedby="button-addon2">
+                    <input type="text" class="form-control" placeholder="Ketik id transaksi"
+                           aria-label="Cari id atau nama mitra" aria-describedby="button-addon2" name="keyword">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2" name="search">
                             <img src="../asset/icon/search.png" alt="" style="width: 20px;">
                         </button>
                     </div>

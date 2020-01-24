@@ -218,7 +218,7 @@ if (isset($_POST["logout"])) {
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             <br>
-                            <img src="../../upload/imgmitra/<?= $row['img']; ?>" class="card-img" alt="No Image" style="width: 10rem; margin-left: 5px; margin-top: 20px">
+                            <img src="../../upload/mitra/<?= $row['img']; ?>" class="card-img" alt="No Image" style="width: 10rem; margin-left: 5px; margin-top: 20px">
                             <br>
                             <br>
                         </div>

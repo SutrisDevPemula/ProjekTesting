@@ -9,9 +9,16 @@ $result_penyewaan = mysqli_query($con, "SELECT * FROM penyewaan");
 $result_mobil = mysqli_query($con, "SELECT * FROM mobil");
 
 $costumer = mysqli_num_rows($result_costumer);
-$mitra= mysqli_num_rows($result_mitra);
+$mitra = mysqli_num_rows($result_mitra);
 $penyewaan = mysqli_num_rows($result_penyewaan);
 $mobil = mysqli_num_rows($result_mobil);
+
+require "../config/function_sewa.php";
+date_default_timezone_set('Asia/Jakarta');
+$tgl=date('m/d/Y');
+//echo $tgl;
+
+$pemesanan = query("SELECT * FROM penyewaan WHERE tanggal_pinjam = '$tgl'");
 
 ?>
 
@@ -101,37 +108,46 @@ $mobil = mysqli_num_rows($result_mobil);
     <!--    row content-->
     <div class="row">
         <div class="col-lg col-lg-8">
-            <h5>New order</h5>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                </tbody>
-            </table>
+            <h5>New order</h5> <?= date('j-F-Y');?>
+            <!--    tabel content-->
+            <br><br>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID Transaksi</th>
+                        <th scope="col">No Ktp</th>
+                        <th scope="col">Tanggal Pinjam</th>
+                        <th scope="col">Durasi</th>
+                        <th scope="col">No Pol</th>
+                        <th scope="col">Biaya</th>
+                        <th scope="col">Satatus Bayar</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <?php foreach ($pemesanan as $row) : ?>
+                        <tr>
+                            <td scope="col"><?= $row['id_transaksi']; ?></td>
+                            <td scope="col"><?= $row["No_ktp"]; ?></td>
+                            <td scope="col"><?= $row["tanggal_pinjam"]; ?></td>
+                            <td scope="col"><?= $row["durasi"]; ?></td>
+                            <td scope="col"><?= $row["no_pol"]; ?></td>
+                            <td scope="col">Rp. <?= number_format($row["biaya"], 0, ".", "."); ?></td>
+                            <td scope="col"><?= $row["paid"]; ?></td>
+                            <td scope="col">
+                                <a href="menu/dtl_pemesanan.php?key=<?= $row['id_transaksi']; ?>&nopol=<?= $row["no_pol"]; ?>">
+                                    <button type="button" class="btn btn-info">Lihat Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+
+                </table>
+            </div>
+            <!--    last tabel content-->
         </div>
         <div class="col-lg">
             <h5>Inbox</h5>
@@ -155,8 +171,6 @@ $mobil = mysqli_num_rows($result_mobil);
 <script src="asset/js/jquery-3.4.1.slim.min.js"></script>
 <script src="asset/js/popper.min.js"></script>
 <script src="asset/js/bootstrap.min.js"></script>
-
-
 
 
 </body>

@@ -25,13 +25,13 @@ $a = date("H");
 $pesan = "";
 
 if (($a >= 6) && ($a <= 11)) {
-  $pesan = "Selamat Pagi !!";
+    $pesan = "Selamat Pagi !!";
 } elseif (($a > 11) && ($a <= 15)) {
-  $pesan = "Selamat Siang !!";
+    $pesan = "Selamat Siang !!";
 } elseif (($a > 15) && ($a <= 18)) {
-  $pesan = "Selamat Sore !!";
+    $pesan = "Selamat Sore !!";
 } else {
-  $pesan = "Selamat Malam !! ";
+    $pesan = "Selamat Malam !! ";
 }
 
 ?>
@@ -42,38 +42,38 @@ if (($a >= 6) && ($a <= 11)) {
 
 if (isset($_POST['login'])) {
 
-  $username = $_POST['username'];
-  $password = $_POST['pass'];
+    $username = $_POST['username'];
+    $password = $_POST['pass'];
 
 
-  $login = login($username, $password);
+    $login = login($username, $password);
 
 
-  $result = mysqli_query($con, "SELECT * FROM costumer");
+    $result = mysqli_query($con, "SELECT * FROM costumer WHERE nama = '$username'");
 
-  $rows =mysqli_fetch_assoc($result);
+    $rows = mysqli_fetch_assoc($result);
 
-  if ($login === $rows['nama']) {
+    if ($login === $rows['nama']) {
 
-    $us = strtoupper($pesan ." ". $login);
+        $us = strtoupper($pesan . " " . $login);
 
-    echo "
+        echo "
     <script> 
     alert ('Hallo, $us');
     </script>
     ";
 
-    $_SESSION["users"] = $login;
+        $_SESSION["users"] = $login;
 
-  }
+    }
 
 }
 
 // penghancuran session
 if (isset($_POST["logout"])) {
-  session_destroy();
-  session_unset();
-  $_SESSION = [];
+    session_destroy();
+    session_unset();
+    $_SESSION = [];
 }
 
 
@@ -130,48 +130,47 @@ if (isset($_POST["logout"])) {
             <img src="asset/icon/1x/sirent_1.png" class="d-inline-block align-top" alt="" style="width: 150px;">
         </a>
         <ul class="nav justify-content-center" style="margin-right:70px ;">
-          <?php if (isset($_SESSION["users"])) : ?>
-              <li class="nav-item" style="margin-right:-25px ;">
-                  <a class="nav-link">
-                      <!-- button to modal -->
-                      <button type="button" class="btn btn-light"><img
-                                  src="asset/icon/user2.png" alt="user" style="width: 25px;">
-                          <span style="color: #007bff; font-family: 'Righteous', cursive;">
+            <?php if (isset($_SESSION["users"])) : ?>
+                <li class="nav-item" style="margin-right:-25px ;">
+                    <a class="nav-link">
+                        <!-- button to modal -->
+                        <button type="button" class="btn btn-light"><img
+                                    src="asset/icon/user2.png" alt="user" style="width: 25px;">
+                            <span style="color: #007bff; font-family: 'Righteous', cursive;">
                             <!-- Log In -->
                             <?= strtoupper($_SESSION["users"]); ?>
                         </span>
-                      </button>
-                  </a>
-              </li>
-              <form action="" method="post">
-                  <li class="nav-item">
-                      <div class="nav-link">
-                          <button type="submit" class="btn btn-primary" name="logout"><span
-                                      style="font-family: 'Righteous', cursive;">Log Out</span></button>
-                      </div>
-                  </li>
-              </form>
-          <?php else: ?>
-              <li class="nav-item" style="margin-right:-25px ;">
-                  <a class="nav-link">
-                      <!-- button to modal -->
-                      <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModal"><img
-                                  src="asset/icon/user2.png" alt="user" style="width: 25px;">
-                          <span style="color: #007bff; font-family: 'Righteous', cursive;">
+                        </button>
+                    </a>
+                </li>
+                <form action="" method="post">
+                    <li class="nav-item">
+                        <div class="nav-link">
+                            <button type="submit" name="logout" class="btn btn-light">Log Out</button>
+                        </div>
+                    </li>
+                </form>
+            <?php else: ?>
+                <li class="nav-item" style="margin-right:-25px ;">
+                    <a class="nav-link">
+                        <!-- button to modal -->
+                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModal"><img
+                                    src="asset/icon/user2.png" alt="user" style="width: 25px;">
+                            <span style="color: #007bff; font-family: 'Righteous', cursive;">
                             <!-- Log In -->
                             Log In
                         </span>
-                      </button>
-                  </a>
-              </li>
+                        </button>
+                    </a>
+                </li>
 
-              <li class="nav-item">
-                  <a class="nav-link" href="menu/registrasi/Register.php">
-                      <button type="button" class="btn btn-primary"><span
-                                  style="font-family: 'Righteous', cursive;">Daftar</span></button>
-                  </a>
-              </li>
-          <?php endif; ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="menu/registrasi/Register.php">
+                        <button type="button" class="btn btn-primary"><span
+                                    style="font-family: 'Righteous', cursive;">Daftar</span></button>
+                    </a>
+                </li>
+            <?php endif; ?>
         </ul>
     </nav>
 
@@ -272,35 +271,35 @@ if (isset($_POST["logout"])) {
             </div>
             <div class="row">
                 <div class="col">
-                  <?php if (!isset($_SESSION["users"])): ?>
-                      <button type="button" class="btn btn-warning btn-sm col-4 disabled"
-                              style="width: 70%; float: right; background-color: orange;" name="cari">
-                          <img src="asset/icon/search.png" alt="" style="width: 30px; ">
-                          Cari Mobil
-                      </button>
-                  <?php else: ?>
-                      <button type="submit" class="btn btn-warning btn-sm col-4"
-                              style="width: 70%; float: right; background-color: orange;" name="cari">
-                          <img src="asset/icon/search.png" alt="" style="width: 30px; ">
-                          Cari Mobil
-                      </button>
-                  <?php endif; ?>
+                    <?php if (!isset($_SESSION["users"])): ?>
+                        <button type="button" class="btn btn-warning btn-sm col-4 disabled"
+                                style="width: 70%; float: right; background-color: orange;" name="cari">
+                            <img src="asset/icon/search.png" alt="" style="width: 30px; ">
+                            Cari Mobil
+                        </button>
+                    <?php else: ?>
+                        <button type="submit" class="btn btn-warning btn-sm col-4"
+                                style="width: 70%; float: right; background-color: orange;" name="cari">
+                            <img src="asset/icon/search.png" alt="" style="width: 30px; ">
+                            Cari Mobil
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
         </form>
     </div>
-  <?php if (!isset($_SESSION["users"])): ?>
-      <div class="card" style="border: 0px; border-radius: 0px; height: 70px">
-          <hr>
-          <div class="card-body" style="margin-top: -20px; text-align: center">
-              <p style=" font-size: 12px">Silahkan melakukan
-                  <a href="" style="color: #005cbf; font-size: 12px; font-weight: bold;" data-toggle="modal"
-                     data-target="#exampleModal">Login</a>
-                  ke akun yang telah anda daftarkan terlebih dahulu untuk
-                  melakukan penyewaan mobil di sirent!</p>
-          </div>
-      </div>
-  <?php endif; ?>
+    <?php if (!isset($_SESSION["users"])): ?>
+        <div class="card" style="border: 0px; border-radius: 0px; height: 70px">
+            <hr>
+            <div class="card-body" style="margin-top: -20px; text-align: center">
+                <p style=" font-size: 12px">Silahkan melakukan
+                    <a href="" style="color: #005cbf; font-size: 12px; font-weight: bold;" data-toggle="modal"
+                       data-target="#exampleModal">Login</a>
+                    ke akun yang telah anda daftarkan terlebih dahulu untuk
+                    melakukan penyewaan mobil di sirent!</p>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>
 
 
